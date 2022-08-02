@@ -6,6 +6,7 @@ from django.test import TestCase
 # Brings default user_models used in project
 from django.contrib.auth import get_user_model
 
+
 class ModelTests(TestCase):
     """Test models"""
 
