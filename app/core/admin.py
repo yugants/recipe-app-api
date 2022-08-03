@@ -3,18 +3,22 @@ Django admin customization
 """
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _    # To create data at user_page in admin
 
+# To create data at user_page in admin
+from django.utils.translation import gettext_lazy as _
 from core import models
+
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages here."""
+
     ordering = ['id']
-    list_display= ['email', 'name']
+    list_display = ['email', 'name']
     """We need to overwrite fields of
     default User model like username, last_name
     etc. otherwise it will show error in admin panel.
     Below we are overwriting these fields:"""
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('name',)}),
@@ -33,9 +37,12 @@ class UserAdmin(BaseUserAdmin):
     readonly_fields = ['last_login']
     '''Below lines are added to display fields in
     the user creation page.'''
+
     add_fieldsets = (
         (None, {
-            'classes': ('wide',), # Its CSS optional
+            # Its CSS optional
+
+            'classes': ('wide',),
             'fields': (
                 'email',
                 'password1',
@@ -47,5 +54,6 @@ class UserAdmin(BaseUserAdmin):
             ),
         }),
     )
+
 
 admin.site.register(models.User, UserAdmin)
