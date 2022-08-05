@@ -10,7 +10,6 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 
-
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
@@ -128,6 +127,7 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
+
 class PrivateApiTests(TestCase):
     """Test API requests that require authentication."""
 
@@ -135,9 +135,9 @@ class PrivateApiTests(TestCase):
         """Initial setUp for the test."""
 
         self.user = create_user(
-            email = 'test@exapmle.com',
-            password = 'testpass123',
-            name = 'Test Name',
+            email='test@exapmle.com',
+            password='testpass123',
+            name='Test Name',
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
@@ -148,14 +148,14 @@ class PrivateApiTests(TestCase):
         res = self.client.get(ME_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data,{
+        self.assertEqual(res.data, {
             'name': self.user.name,
             'email': self.user.email,
         })
 
     def test_post_me_not_allowed(self):
         """Test POST is not allowed for the me endpoint."""
-        res = self.client.post(ME_URL,{})
+        res = self.client.post(ME_URL, {})
 
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
