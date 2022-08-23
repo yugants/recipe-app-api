@@ -2,17 +2,16 @@
 Database models
 """
 from django.db import models
-"""
-Need to include settings to get AUTH_USER_MODEL
-for making Foreign Key relation
-"""
-
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
+"""
+Need to include settings to get AUTH_USER_MODEL
+for making Foreign Key relation
+"""
 
 
 class UserManager(BaseUserManager):
@@ -47,6 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
 
 class Recipe(models.Model):
     """Recipe object."""
